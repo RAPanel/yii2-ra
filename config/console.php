@@ -8,11 +8,24 @@ $db = require(__DIR__ . '/db.php');
 $config = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'ra'],
     'controllerNamespace' => 'app\commands',
+    'controllerMap'=>[
+        'admin'=>'ra\admin\commands\AdminController',
+    ],
+    'modules' => [
+        'ra' => 'ra\admin\AdminModule',
+    ],
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
+        ],
+        'i18n' => [
+            'translations' => [
+                '*' => [
+                    'class' => 'yii\i18n\PhpMessageSource'
+                ],
+            ],
         ],
         'log' => [
             'targets' => [
@@ -25,13 +38,6 @@ $config = [
         'db' => $db,
     ],
     'params' => $params,
-    /*
-    'controllerMap' => [
-        'fixture' => [ // Fixture generation command line.
-            'class' => 'yii\faker\FixtureController',
-        ],
-    ],
-    */
 ];
 
 if (YII_ENV_DEV) {
