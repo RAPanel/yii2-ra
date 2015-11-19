@@ -8,13 +8,10 @@ $db = require(__DIR__ . '/db.php');
 $config = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log', 'ra'],
+    'bootstrap' => ['log'],
     'controllerNamespace' => 'app\commands',
     'controllerMap'=>[
         'admin'=>'ra\admin\commands\AdminController',
-    ],
-    'modules' => [
-        'ra' => 'ra\admin\AdminModule',
     ],
     'components' => [
         'cache' => [
