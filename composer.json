@@ -35,13 +35,7 @@
   },
   "scripts": {
     "post-create-project-cmd": [
-      "php -r \"copy('web/.htaccess', '../.htaccess');\"",
-      "php -r \"copy('web/favicon.ico', '../favicon.ico');\"",
-      "php -r \"mkdir('../assets', 0777);\"",
-      "php -r \"mkdir('../image', 0777);\"",
-      "php -r \"mkdir('../source', 0777);\"",
-      "php -r \"mkdir('../theme', 0777);\"",
-      "php -r \"file_put_contents('../index.php', '<?php require(__DIR__ . \''. str_replace(dirname(__DIR__), '', __DIR__).'/web/index.php\');');\"",
+      "php yii admin/install",
       "yii\\composer\\Installer::postCreateProject"
     ]
   },
