@@ -42,6 +42,8 @@
   "extra": {
     "fbourigault-composer-mkdir": [
       "../assets",
+      "../image",
+      "../source",
       "../theme"
     ],
     "yii\\composer\\Installer::postCreateProject": {
@@ -50,6 +52,8 @@
           "runtime": "0777",
           "web/assets": "0777",
           "../assets": "0777",
+          "../image": "0777",
+          "../source": "0777",
           "../theme": "0777",
           "yii": "0755"
         }
