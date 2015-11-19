@@ -35,8 +35,8 @@
   },
   "scripts": {
     "post-create-project-cmd": [
-      "php yii admin/install",
-      "yii\\composer\\Installer::postCreateProject"
+      "yii\\composer\\Installer::postCreateProject",
+      "php yii admin/install"
     ]
   },
   "extra": {
