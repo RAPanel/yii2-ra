@@ -20,7 +20,6 @@
   "minimum-stability": "dev",
   "require": {
     "php": ">=5.4.0",
-    "fbourigault/composer-mkdir": "^2.0",
     "yiisoft/yii2": ">=2.0.5",
     "yiisoft/yii2-swiftmailer": "*",
     "rere/yii2-admin": "dev-rc-1.0"
@@ -36,26 +35,32 @@
   },
   "scripts": {
     "post-create-project-cmd": [
-      "Fbourigault\\ComposerMkdir\\ScriptHandler::mkdirs",
       "yii\\composer\\Installer::postCreateProject"
     ]
   },
   "extra": {
-    "fbourigault-composer-mkdir": [
-      "../assets",
-      "../image",
-      "../source",
-      "../theme"
-    ],
-    "yii\\composer\\Installer::postCreateProject": {
-      "setPermission": [
+    "ra\\admin\\Installer::postCreateProject": {
+      "addRunFile": [
+        "../index.php"
+      ],
+      "copyFile": [
         {
-          "runtime": "0777",
-          "web/assets": "0777",
+          "web/.htaccess": "../.htaccess",
+          "web/favicon.ico": "../favicon.ico"
+        }
+      ],
+      "mkDir": [
+        {
           "../assets": "0777",
           "../image": "0777",
           "../source": "0777",
-          "../theme": "0777",
+          "../theme": "0777"
+        }
+      ],
+      "setPermission": [
+        {
+          "web/assets": "0777",
+          "runtime": "0777",
           "yii": "0755"
         }
       ],
