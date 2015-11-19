@@ -39,7 +39,7 @@
     ]
   },
   "extra": {
-    "ra\\admin\\Installer::postCreateProject": {
+    "yii\\composer\\Installer::postCreateProject": {
       "addRunFile": [
         "../index.php"
       ],
