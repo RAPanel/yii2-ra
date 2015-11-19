@@ -37,6 +37,12 @@
   "scripts": {
     "post-create-project-cmd": [
       "yii\\composer\\Installer::postCreateProject"
+    ],
+    "post-install-cmd": [
+      "Fbourigault\\ComposerMkdir\\ScriptHandler::mkdirs"
+    ],
+    "post-update-cmd": [
+      "Fbourigault\\ComposerMkdir\\ScriptHandler::mkdirs"
     ]
   },
   "extra": {
