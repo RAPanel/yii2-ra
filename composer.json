@@ -22,7 +22,7 @@
     "php": ">=5.4.0",
     "yiisoft/yii2": ">=2.0.5",
     "yiisoft/yii2-swiftmailer": "*",
-    "rere/yii2-admin": "dev-rc-1.0"
+    "rere/yii2-admin": "dev-master"
   },
   "require-dev": {
     "yiisoft/yii2-codeception": "*",
