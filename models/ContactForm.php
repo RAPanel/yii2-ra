@@ -2,33 +2,31 @@
 
 namespace app\models;
 
+use ra\admin\models\Form;
 use Yii;
-use yii\base\Model;
+use yii\helpers\ArrayHelper;
+use yii\web\UploadedFile;
 
 /**
  * ContactForm is the model behind the contact form.
  */
-class ContactForm extends Model
+class ContactForm extends Form
 {
-    public $name;
-    public $email;
-    public $subject;
-    public $body;
-    public $verifyCode;
+    public $file;
 
     /**
      * @return array the validation rules.
      */
     public function rules()
     {
-        return [
-            // name, email, subject and body are required
-            [['name', 'email', 'subject', 'body'], 'required'],
-            // email has to be a valid email address
+        return ArrayHelper::merge(parent::rules(), [
+            [['name', 'email', 'phone'], 'required'],
+            ['phone', 'match', 'pattern' => '/^[-+0-9()\s]+$/'],
+            ['phone', 'string', 'length' => [7, 24]],
             ['email', 'email'],
-            // verifyCode needs to be entered correctly
-            ['verifyCode', 'captcha'],
-        ];
+            [['file'], 'file'],
+            [['fromUrl', 'text'], 'safe'],
+        ]);
     }
 
     /**
@@ -37,27 +35,26 @@ class ContactForm extends Model
     public function attributeLabels()
     {
         return [
-            'verifyCode' => 'Verification Code',
+            'name' => 'имя',
+            'email' => 'e-mail',
+            'phone' => 'телефон',
+            'text' => 'текст сообщения',
+            'fromUrl' => 'С адреса',
         ];
     }
 
-    /**
-     * Sends an email to the specified email address using the information collected by this model.
-     * @param  string  $email the target email address
-     * @return boolean whether the model passes validation
-     */
-    public function contact($email)
+    public function afterValidate()
     {
-        if ($this->validate()) {
-            Yii::$app->mailer->compose()
-                ->setTo($email)
-                ->setFrom([$this->email => $this->name])
-                ->setSubject($this->subject)
-                ->setTextBody($this->body)
-                ->send();
+        $this->uploadFiles('file', '@app/runtime/formUploads/' . date('Y-m-d') . '/');
+        parent::afterValidate();
+    }
 
-            return true;
-        }
-        return false;
+    public function beforeSend($mail)
+    {
+        if ($this->file) foreach ($this->file as $file)
+            $mail->attach($file->tempName, [
+                'fileName' => $file->name,
+                'contentType' => $file->type,
+            ]);
     }
 }
